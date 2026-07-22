@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jay's Home Page</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⭐</text></svg>">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --border: #e2e5ea;
+    --hover: #eef1f5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171c;
+      --card: #1e2329;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+      --border: #2c333b;
+      --hover: #262d35;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px 16px 60px;
+  }
+  main { max-width: 900px; margin: 0 auto; }
+  h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 8px 4px 20px;
+  }
+  h1 small { color: var(--muted); font-weight: 400; font-size: 0.85rem; margin-left: 10px; }
+  section { margin-bottom: 28px; }
+  h2 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 0 4px 10px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  .grid a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.95rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .grid a:hover { background: var(--hover); }
+  .grid a img, .grid a .letter {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .grid a .letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #4a6fa5;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  /* Phone: two columns of slightly smaller tiles */
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    body { padding-top: 16px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>⭐ Jay's Home Page</h1>
+
+  <!-- ==================================================================
+       TO ADD A SHORTCUT: copy any line that starts with <a href=
+       paste it where you want it, then change the web address and the name.
+       That's the whole job — the icon appears automatically.
+
+       TO ADD A NEW GROUP: copy a whole <section> ... </section> block
+       and change the name inside <h2>.
+       ================================================================== -->
+
+  <section>
+    <h2>Daily</h2>
+    <div class="grid">
+      <a href="https://mail.google.com">Gmail</a>
+      <a href="https://calendar.google.com">Calendar</a>
+      <a href="https://www.google.com/maps">Maps</a>
+      <a href="https://www.youtube.com">YouTube</a>
+      <a href="https://photos.google.com">Photos</a>
+      <a href="https://drive.google.com">Drive</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>News &amp; Weather</h2>
+    <div class="grid">
+      <a href="https://news.google.com">Google News</a>
+      <a href="https://www.weather.gov">Weather</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Shopping</h2>
+    <div class="grid">
+      <a href="https://www.amazon.com">Amazon</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Home (only works on home Wi-Fi)</h2>
+    <div class="grid">
+      <a href="http://192.168.10.90:8123">Home Assistant</a>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Decorates each shortcut with its site's icon (via Google's favicon
+  // lookup). If no icon is found, shows a colored tile with the first letter.
+  document.querySelectorAll(".grid a").forEach(function (link) {
+    var name = link.textContent.trim();
+    link.textContent = "";
+
+    var img = document.createElement("img");
+    var host;
+    try { host = new URL(link.href).hostname; } catch (e) { host = ""; }
+    img.src = "https://www.google.com/s2/favicons?domain=" + host + "&sz=64";
+    img.alt = "";
+    img.onerror = function () { swapToLetter(); };
+    img.onload = function () {
+      // Google returns a tiny globe placeholder when it has no icon
+      if (img.naturalWidth <= 16) swapToLetter();
+    };
+    function swapToLetter() {
+      var letter = document.createElement("div");
+      letter.className = "letter";
+      letter.textContent = name.charAt(0).toUpperCase();
+      img.replaceWith(letter);
+    }
+
+    var label = document.createElement("span");
+    label.textContent = name;
+    link.append(img, label);
+  });
+</script>
+</body>
+</html>
