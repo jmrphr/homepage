@@ -118,7 +118,7 @@
     <h2>Home (only works on home Wi-Fi)</h2>
     <div class="grid">
       <a href="http://192.168.10.90:8123" data-icon="🏠">Home Assistant</a>
-      <a href="https://192.168.0.1/protect/dashboard" data-icon="📷">House Cam</a>
+      <a href="https://192.168.0.1/protect/dashboard" data-img="icons/bullet-cam.svg">House Cam</a>
       <a href="http://homemovies.local" data-icon="🎬">Home Movies</a>
       <a href="https://fitness.kgmdesigns.com/dashboard" data-icon="💪">Fitness</a>
     </div>
@@ -128,7 +128,7 @@
     <h2>News &amp; Weather</h2>
     <div class="grid">
       <a href="https://news.google.com">Google News</a>
-      <a href="https://www.google.com/search?q=google+weather" data-icon="⛈️">Weather</a>
+      <a href="https://www.google.com/search?q=google+weather" data-img="icons/storm-cloud.svg">Weather</a>
       <a href="https://www.wsj.com">Wall Street Journal</a>
     </div>
   </section>
@@ -174,10 +174,20 @@
   // lookup). If no icon is found, shows a colored tile with the first letter.
   // A link with data-icon="🎬" shows that emoji instead and skips the lookup
   // (use it for home-network links, which Google can't see).
+  // A link with data-img="icons/x.svg" shows that picture instead.
   document.querySelectorAll(".grid a").forEach(function (link) {
     var name = link.textContent.trim();
     link.textContent = "";
 
+    if (link.dataset.img) {
+      var pic = document.createElement("img");
+      pic.src = link.dataset.img;
+      pic.alt = "";
+      var caption = document.createElement("span");
+      caption.textContent = name;
+      link.append(pic, caption);
+      return;
+    }
     if (link.dataset.icon) {
       var emoji = document.createElement("div");
       emoji.className = "emoji";

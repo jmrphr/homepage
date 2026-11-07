@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- dark cloud -->
+  <g fill="#475569" stroke="#334155" stroke-width="1.5">
+    <circle cx="22" cy="26" r="11"/>
+    <circle cx="36" cy="20" r="14"/>
+    <circle cx="48" cy="29" r="9"/>
+    <rect x="10" y="26" width="46" height="14" rx="7"/>
+  </g>
+  <g fill="#475569">
+    <circle cx="22" cy="26" r="10"/>
+    <circle cx="36" cy="20" r="13"/>
+    <circle cx="48" cy="29" r="8"/>
+    <rect x="11" y="27" width="44" height="12" rx="6"/>
+  </g>
+  <!-- lightning bolt -->
+  <path d="M34 34 L24 49 L31 49 L27 61 L41 43 L33 43 L38 34 Z" fill="#facc15" stroke="#ca8a04" stroke-width="1.2" stroke-linejoin="round"/>
+</svg>
